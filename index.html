@@ -32,7 +32,8 @@
   const CONFIG = {
     commandPathDelimiter: '/',
     commandSearchDelimiter: ' ',
-    defaultSearchTemplate: 'https://duckduckgo.com/?q={}',
+    //defaultSearchTemplate: 'https://duckduckgo.com/?q={}',
+    defaultSearchTemplate: 'https://ecosia.org/search?q={}',
     openLinksInNewTab: true,
     suggestionLimit: 4,
   };
@@ -377,6 +378,7 @@
         const script = document.createElement('script');
         document.querySelector('head').appendChild(script);
         script.src = `https://duckduckgo.com/ac/?callback=autocompleteCallback&q=${search}`;
+        // script.src = `https://www.ecosia.org/search?q=${search}`;
         script.onload = script.remove;
       });
     }
