@@ -39,20 +39,43 @@
   };
 
   const COMMANDS = new Map([
-    ['a', { name: 'Chat', url: 'https://chat.openai.com' }],
-    ['b', { name: 'Dribbble', url: 'https://dribbble.com/shots/recent' }],
-    ['c', { name: 'Calendar', url: 'https://calendar.google.com' }],
-    [
-      'd',
-      {
-        name: 'Drive',
-        url: 'https://drive.google.com/drive/u/0/my-drive',
-      },
-    ],
-    ['f', { name: 'Figma', url: 'https://www.figma.com' }],
-    ['g', { name: 'GitHub', url: 'https://github.com' }],
-    ['k', { name: 'Keep', url: 'https://keep.google.com' }],
-    ['n', { name: 'Notion', url: 'https://www.notion.so' }],
+    ['a', {
+      name: 'Agenda',
+      url: 'https://calendar.google.com'
+    }],
+    ['aw', {
+      name: 'ActivityWatch',
+      url: 'https://aw.dev.local'
+    }],
+    // ['b', { name: 'Dribbble', url: 'https://dribbble.com/shots/popular' }],
+    ['c', {
+      name: 'ChatGPT',
+      url: 'https://chat.openai.com'
+    }],
+    ['d', {
+      name: 'Drive',
+      url: 'https://drive.google.com'
+    }],
+    // ['f', { name: 'Figma', url: 'https://www.figma.com/files/recent' }],
+    ['g', {
+      name: 'GitHub',
+      url: 'https://github.com'
+    }],
+    // ['h', { name: 'Hypem', url: 'https://hypem.com/popular' }],
+    // ['i', { name: 'Discord', url: 'https://discord.com/channels/@me' }],
+    ['k', {
+      name: 'Keep',
+      url: 'https://keep.google.com'
+    }],
+    // ['m', { name: 'Mail', url: 'https://mail.proton.me/u/0/inbox' }],
+    ['n', {
+      name: 'NocoDB',
+      url: 'https://nocodb.dev.local'
+    }],
+    ['p', {
+      name: 'cPanel',
+      url: 'https://cpanel.lafabriquevirtuelle.com'
+    }],
     [
       'p',
       {
@@ -74,29 +97,53 @@
         url: 'https://reddit.com',
       },
     ],
-    ['s', { name: 'Supabase', url: 'https://supabase.com/dashboard/projects' }],
-    ['t', { name: 'Translate', url: 'https://www.deepl.com/translator' }],
-    ['v', { name: 'Vercel', url: 'https://vercel.com/dashboard' }],
-    [
-      'x',
-      {
-        name: 'xvvvyz',
-        suggestions: [
-          'jelly.xvvvyz.xyz',
-          'torrent.xvvvyz.xyz',
-          'proxy.xvvvyz.xyz',
-        ],
-        url: 'https://pomodoro.xvvvyz.xyz',
-      },
-    ],
+    // ['s', { name: 'Supabase', url: 'https://supabase.com/dashboard/projects' }],
+    ['t', {
+      name: 'Translate',
+      url: 'https://www.deepl.com/translator'
+    }],
+    // ['v', { name: 'Vercel', url: 'https://vercel.com/dashboard' }],
+    // [
+    //   'x',
+    //   {
+    //     name: 'xvvvyz',
+    //     suggestions: [
+    //       'jelly.xvvvyz.xyz',
+    //       'torrent.xvvvyz.xyz',
+    //       'proxy.xvvvyz.xyz',
+    //     ],
+    //     url: 'https://pomodoro.xvvvyz.xyz',
+    //   },
+    // ],
+    // [
+    //   's',
+    //   {
+    //     name: 'Slack',
+    //     suggestions: ['s/ayp', 's/sn'],
+    //     url: 'https://app.slack.com',
+    //   },
+    // ],
+    // ['s/ayp', { command: 's/client/T03VB9LJ0AF' }],
+    // ['s/sn', { command: 's/client/T09M5UWSV' }],
+    // ['t', {
+    //   name: 'Translate',
+    //   url: 'https://translate.google.com'
+    // }],
+    // ['u', { name: 'Supabase', url: 'https://app.supabase.com/projects' }],
+    // ['v', { name: 'Vercel', url: 'https://vercel.com/dashboard' }],
+    // ['w', { name: 'Twitter', url: 'https://twitter.com/home' }],
     [
       'y',
       {
-        name: 'YouTube',
+        name: 'YuToube',
         searchTemplate: '/results?search_query={}',
         url: 'https://youtube.com/feed/subscriptions',
       },
     ],
+    ['8', {
+      name: 'n8n',
+      url: 'https://n8n.dev.local'
+    }],
     [
       '0',
       {
@@ -106,6 +153,10 @@
         url: 'http://localhost:3000',
       },
     ],
+    ['?', {
+      name: 'Help',
+      url: 'https://github.com/xvvvyz/tilde'
+    }],
   ]);
 </script>
 
@@ -191,13 +242,18 @@
   class Commands extends HTMLElement {
     constructor() {
       super();
-      this.attachShadow({ mode: 'open' });
+      this.attachShadow({
+        mode: 'open'
+      });
       const template = document.getElementById('commands-template');
       const clone = template.content.cloneNode(true);
       const commands = clone.querySelector('.commands');
       const commandTemplate = document.getElementById('command-template');
 
-      for (const [key, { name, url }] of COMMANDS.entries()) {
+      for (const [key, {
+          name,
+          url
+        }] of COMMANDS.entries()) {
         if (!name || !url) continue;
         const clone = commandTemplate.content.cloneNode(true);
         const command = clone.querySelector('.command');
@@ -344,7 +400,9 @@
 
     constructor() {
       super();
-      this.attachShadow({ mode: 'open' });
+      this.attachShadow({
+        mode: 'open'
+      });
       const template = document.getElementById('search-template');
       const clone = template.content.cloneNode(true);
       this.#dialog = clone.querySelector('.dialog');
@@ -404,37 +462,69 @@
 
       if (this.#isUrl(query)) {
         const url = this.#hasProtocol(query) ? query : `https://${query}`;
-        return { query, url };
+        return {
+          query,
+          url
+        };
       }
 
       if (COMMANDS.has(query)) {
-        const { command, key, url } = COMMANDS.get(query);
-        return command ? Search.#parseQuery(command) : { key, query, url };
+        const {
+          command,
+          key,
+          url
+        } = COMMANDS.get(query);
+        return command ? Search.#parseQuery(command) : {
+          key,
+          query,
+          url
+        };
       }
 
       let splitBy = CONFIG.commandSearchDelimiter;
       const [searchKey, rawSearch] = query.split(new RegExp(`${splitBy}(.*)`));
 
       if (COMMANDS.has(searchKey)) {
-        const { searchTemplate, url: base } = COMMANDS.get(searchKey);
+        const {
+          searchTemplate,
+          url: base
+        } = COMMANDS.get(searchKey);
         const search = rawSearch.trim();
         const url = Search.#formatSearchUrl(base, searchTemplate, search);
-        return { key: searchKey, query, search, splitBy, url };
+        return {
+          key: searchKey,
+          query,
+          search,
+          splitBy,
+          url
+        };
       }
 
       splitBy = CONFIG.commandPathDelimiter;
       const [pathKey, path] = query.split(new RegExp(`${splitBy}(.*)`));
 
       if (COMMANDS.has(pathKey)) {
-        const { url: base } = COMMANDS.get(pathKey);
+        const {
+          url: base
+        } = COMMANDS.get(pathKey);
         const [baseUrl] = Search.#splitUrl(base);
         const url = `${baseUrl}/${path}`;
-        return { key: pathKey, path, query, splitBy, url };
+        return {
+          key: pathKey,
+          path,
+          query,
+          splitBy,
+          url
+        };
       }
 
       const [baseUrl, rest] = Search.#splitUrl(CONFIG.defaultSearchTemplate);
       const url = Search.#formatSearchUrl(baseUrl, rest, query);
-      return { query, search: query, url };
+      return {
+        query,
+        search: query,
+        url
+      };
     };
 
     static #splitUrl(url) {
@@ -453,7 +543,9 @@
     }
 
     #execute(query) {
-      const { url } = Search.#parseQuery(query);
+      const {
+        url
+      } = Search.#parseQuery(query);
       const target = CONFIG.openLinksInNewTab ? '_blank' : '_self';
       window.open(url, target, 'noopener noreferrer');
       this.#close();
@@ -489,9 +581,9 @@
         const res = await Search.#fetchDuckDuckGoSuggestions(oq.search);
 
         suggestions = suggestions.concat(
-          oq.splitBy
-            ? res.map((search) => `${oq.key}${oq.splitBy}${search}`)
-            : res
+          oq.splitBy ?
+          res.map((search) => `${oq.key}${oq.splitBy}${search}`) :
+          res
         );
       }
 
