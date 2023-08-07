@@ -13,6 +13,9 @@
     --color-text: #eee;
     --font-family: -apple-system, Helvetica, sans-serif;
     --font-size: clamp(16px, 1.6vw, 18px);
+    --font-size-1: 1rem;
+    --font-size-2: 3rem;
+    --font-size-base: clamp(16px, 1.6vw, 18px);
     --font-weight-bold: 700;
     --font-weight-normal: 400;
     --space: 1rem;
@@ -39,43 +42,67 @@
   };
 
   const COMMANDS = new Map([
-    ['a', {
-      name: 'Agenda',
-      url: 'https://calendar.google.com'
-    }],
-    ['aw', {
-      name: 'ActivityWatch',
-      url: 'https://aw.dev.local'
-    }],
+    [
+      'a',
+      {
+        name: 'Agenda',
+        url: 'https://calendar.google.com'
+      }
+    ],
+    [
+      'aw',
+      {
+        name: 'ActivityWatch',
+        url: 'https://aw.dev.local'
+      }
+    ],
     // ['b', { name: 'Dribbble', url: 'https://dribbble.com/shots/popular' }],
-    ['c', {
-      name: 'ChatGPT',
-      url: 'https://chat.openai.com'
-    }],
-    ['d', {
-      name: 'Drive',
-      url: 'https://drive.google.com'
-    }],
+    [
+      'c',
+      {
+        name: 'ChatGPT',
+        url: 'https://chat.openai.com'
+      }
+    ],
+    [
+      'd',
+      {
+        name: 'Drive',
+        url: 'https://drive.google.com'
+      }
+    ],
     // ['f', { name: 'Figma', url: 'https://www.figma.com/files/recent' }],
-    ['g', {
-      name: 'GitHub',
-      url: 'https://github.com'
-    }],
+    [
+      'g',
+      {
+        name: 'GitHub',
+        url: 'https://github.com'
+      }
+    ],
     // ['h', { name: 'Hypem', url: 'https://hypem.com/popular' }],
     // ['i', { name: 'Discord', url: 'https://discord.com/channels/@me' }],
-    ['k', {
-      name: 'Keep',
-      url: 'https://keep.google.com'
-    }],
+    [
+      'k',
+      {
+        name: 'Keep',
+        url: 'https://keep.google.com'
+      }
+    ],
     // ['m', { name: 'Mail', url: 'https://mail.proton.me/u/0/inbox' }],
-    ['n', {
-      name: 'NocoDB',
-      url: 'https://nocodb.dev.local'
-    }],
-    ['p', {
-      name: 'cPanel',
-      url: 'https://cpanel.lafabriquevirtuelle.com'
-    }],
+    [
+      'n',
+      {
+        name: 'NocoDB',
+        url: 'https://nocodb.dev.local'
+      }
+    ],
+    [
+      'p',
+      {
+        name: 'cPanel',
+        url: 'https://cpanel.lafabriquevirtuelle.com'
+      }
+    ],
     [
       'p',
       {
@@ -97,23 +124,19 @@
         url: 'https://reddit.com',
       },
     ],
-    // ['s', { name: 'Supabase', url: 'https://supabase.com/dashboard/projects' }],
-    ['t', {
-      name: 'Translate',
-      url: 'https://www.deepl.com/translator'
-    }],
-    // ['v', { name: 'Vercel', url: 'https://vercel.com/dashboard' }],
+    [
+      's',
+      {
+        name: 'Strapi',
+        url: 'https://strapi.lafabriquevirtuelle.com/admin'
+      }
+    ],
     // [
-    //   'x',
+    //   'sv',
     //   {
-    //     name: 'xvvvyz',
-    //     suggestions: [
-    //       'jelly.xvvvyz.xyz',
-    //       'torrent.xvvvyz.xyz',
-    //       'proxy.xvvvyz.xyz',
-    //     ],
-    //     url: 'https://pomodoro.xvvvyz.xyz',
-    //   },
+    //     name: 'Svelte',
+    //     url: 'localhost:5173'
+    //   }
     // ],
     // [
     //   's',
@@ -129,6 +152,15 @@
     //   name: 'Translate',
     //   url: 'https://translate.google.com'
     // }],
+    [
+      't',
+      {
+        name: 'DeepL',
+        searchTemplate: '/translator#en/fr/{}',
+        suggestions: ['t/translator#en/fr/'],
+        url: 'https://www.deepl.com/en/translator',
+      },
+    ],
     // ['u', { name: 'Supabase', url: 'https://app.supabase.com/projects' }],
     // ['v', { name: 'Vercel', url: 'https://vercel.com/dashboard' }],
     // ['w', { name: 'Twitter', url: 'https://twitter.com/home' }],
@@ -140,23 +172,29 @@
         url: 'https://youtube.com/feed/subscriptions',
       },
     ],
-    ['8', {
-      name: 'n8n',
-      url: 'https://n8n.dev.local'
-    }],
+    [
+      '8',
+      {
+        name: 'n8n',
+        url: 'https://n8n.dev.local'
+      }
+    ],
     [
       '0',
       {
         name: 'localhost',
         searchTemplate: ':{}',
-        suggestions: ['0 54323', '0 54324'],
+        suggestions: ['0 5173', '0 3000'],
         url: 'http://localhost:3000',
       },
     ],
-    ['?', {
-      name: 'Help',
-      url: 'https://github.com/xvvvyz/tilde'
-    }],
+    [
+      '?',
+      {
+        name: 'Help',
+        url: 'https://github.com/xvvvyz/tilde'
+      }
+    ],
   ]);
 </script>
 
@@ -415,6 +453,14 @@
       document.addEventListener('keydown', this.#onKeydown);
       this.shadowRoot.append(clone);
     }
+
+    // static #attachSearchPrefix(array, {
+    //   key,
+    //   splitBy
+    // }) {
+    //   if (!splitBy) return array;
+    //   return array.map((search) => `${key}${splitBy}${search}`);
+    // }
 
     static #escapeRegexCharacters(s) {
       return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
